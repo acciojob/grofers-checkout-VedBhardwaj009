@@ -1,45 +1,115 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grofers Checkout</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total-row td {
+            font-weight: bold;
+            background-color: #e8f8e8;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- the entire body must be written by student -->
-    <table style="width: 100%">
-    <caption>
-      Monthly savings
-    </caption>
-    <tr>
-      <th>Item</th>
-      <th>Prices in Rs</th>
-    </tr>
-    <tr>
-      <td class="item">Tea</td>
-      <td class="price">50</td>
-    </tr>
-    <tr>
-      <td class="item">Coffee</td>
-      <td class="price">70</td>
-    </tr>
-    <tr>
-      <td class="item">Biscuits</td>
-      <td class="price">100</td>
-    </tr>
-    <tr>
-      <td class="item">Rice</td>
-      <td class="price">130</td>
-    </tr>
-    <tr>
-      <td class="item">Milk</td>
-      <td class="price">50</td>
-    </tr>
-  </table>
-    <script type="text/javascript" src="./script.js">
-</script>
+    <table>
+        <caption>
+            Monthly Savings
+        </caption>
+        <tr>
+            <th>Item</th>
+            <th>Prices in Rs</th>
+        </tr>
+        <tr>
+            <td class="item">Tea</td>
+            <td class="price">50</td>
+        </tr>
+        <tr>
+            <td class="item">Coffee</td>
+            <td class="price">70</td>
+        </tr>
+        <tr>
+            <td class="item">Biscuits</td>
+            <td class="price">100</td>
+        </tr>
+        <tr>
+            <td class="item">Rice</td>
+            <td class="price">130</td>
+        </tr>
+        <tr>
+            <td class="item">Milk</td>
+            <td class="price">50</td>
+        </tr>
+    </table>
+    <button id="getSumBtn">Get Total Price</button>
 
+    <script>
+        const getSum = () => {
+            // Select all elements with the class 'price'
+            const priceElements = document.querySelectorAll(".price");
+
+            // Calculate the sum of prices
+            let total = 0;
+            priceElements.forEach(priceElement => {
+                total += parseFloat(priceElement.textContent);
+            });
+
+            // Check if the total row already exists and remove it to avoid duplicates
+            const existingTotalRow = document.querySelector(".total-row");
+            if (existingTotalRow) {
+                existingTotalRow.remove();
+            }
+
+            // Create a new row for the total price
+            const table = document.querySelector("table");
+            const totalRow = document.createElement("tr");
+            totalRow.classList.add("total-row");
+
+            // Create a single cell for the total price
+            const totalCell = document.createElement("td");
+            totalCell.setAttribute("colspan", "2");
+            totalCell.textContent = `Total Price: Rs ${total}`;
+            totalCell.style.textAlign = "right"; // Align text to the right
+
+            // Append the cell to the row and the row to the table
+            totalRow.appendChild(totalCell);
+            table.appendChild(totalRow);
+        };
+
+        const getSumBtn = document.getElementById("getSumBtn");
+        getSumBtn.addEventListener("click", getSum);
+    </script>
 </body>
 
 </html>
